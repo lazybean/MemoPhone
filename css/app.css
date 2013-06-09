@@ -1,0 +1,14 @@
+@import url(../css/widgets/headers.css);
+@import url(../css/widgets/buttons.css);
+@import url(../css/fonts.css);
+body {
+  margin: 0;
+}
+
+#main {
+  margin: 5px;
+}
+
+button.bb-docs {
+  margin-top:5px;
+}

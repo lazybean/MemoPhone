@@ -1,0 +1,24 @@
+{
+  "version": "0.1",
+    "name": "MemoPhone",
+    "description": "Memorize your contacts phone numbers",
+    "launch_path": "/menu.html",
+    "type": "privileged",
+    "developer": {
+      "name": "Dodo",
+      "url": "http://lazybean.gihtub.com/dodolab/about"
+    },
+    "installs_allowed_from": ["*"],
+    "locales": {
+      "fr":    {
+        "description": "Mémorisez les numéros de mobile de vos contacts"
+      }
+    },
+    "default_locale": "en",
+    "permissions": {
+      "contacts" : {
+        "description": "Use contact information for questions",
+        "access": "readonly"
+      }
+    }
+}
