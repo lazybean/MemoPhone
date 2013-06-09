@@ -12,3 +12,11 @@ body {
 button.bb-docs {
   margin-top:5px;
 }
+
+#photo {
+  min-height: 100px;
+  min-width: 100px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin:auto;
+}

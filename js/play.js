@@ -5,16 +5,18 @@
   scoreUI,
   correctAnswer,
   currentQuestion,
+  photo,
   score,
   totalAnswers,
   contacts,
+  photoField,
   callOnFail = false,
   reqContacts,
   clickEvent = "touchstart" in document.documentElement ? "touchstart" : "click";
 
   //we try to get contacts from phone
   //and then init the rest.
-  if ( navigator.mozContacts && navigator.mozContacts.getAll ) {
+  if ( navigator.mozContacts) { // && navigator.mozContacts.getAll ) {
     console.log('ContactManager enabled');
     contacts = [];
     reqContacts = navigator.mozContacts.getAll({sortBy: "familyName", sortOrder: "descending"});
@@ -25,9 +27,11 @@
       console.log('reqContacts: got  contacts');
       if ( cursor.result ) {
         console.log('contacts result found');
+        console.log(JSON.stringify(cursor.result));
         contact = {
           "givenName": cursor.result.givenName[0],
-          "number": cursor.result.tel[0].value
+          "number": cursor.result.tel[0].value,
+          "photo": cursor.result.photo
         };
         console.log('add contact ' + JSON.stringify(contact));
         contacts.push(contact);
@@ -55,6 +59,7 @@
     answer = document.getElementById('answer');
     question = document.getElementById('question');
     scoreUI = document.getElementById('score');
+    photoField = document.getElementById('photo');
     callOnFail = document.location.href.indexOf('callOnFail') >= 0;
     console.log('init: btn is '+ btn);
     score = 0;
@@ -64,6 +69,8 @@
   }
 
   function setupQuestion(contactInfo) {
+    photo = ( contactInfo.photo && contactInfo.photo[0]) || null;
+    updatePhoto(photo, photoField);
     currentQuestion = contactInfo.givenName; 
     correctAnswer  = contactInfo.number;
   }
@@ -127,8 +134,21 @@
   }
 
   function closeApp(evt) {
-  evt.preventDefault();
+    evt.preventDefault();
     console.log('Close app');
     window.close();
+  }
+
+  function updatePhoto(photo, dest) {
+    var background = '';
+    if (photo != null) {
+      console.log('put photo');
+      background = 'url(' + URL.createObjectURL(photo) + ')';
+      dest.style.display = "block";
+    } else {
+      background = null;
+      dest.style.display ="none";
+     }
+    dest.style.backgroundImage = background;
   }
 }());
